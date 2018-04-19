@@ -6,7 +6,7 @@ var tbodyEl = document.getElementsByTagName('tbody')[0];
 
 // Create an event listener so that when the delete link is clicked, the removeItemFromCart method is invoked.
 var table = document.getElementById('cart');
-// table.addEventListener('click', removeItemFromCart);
+table.addEventListener('click', removeItemFromCart);
 
 function loadCart() {
   Cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -21,7 +21,9 @@ function renderCart() {
 
 // TODO: Remove all of the rows (tr) in the cart table (tbody)
 function clearCart() {
-  tbodyEl.removeChild('tr');
+  for (var i in Cart) {
+    tbodyEl.removeChild('tr');
+  }
 }
 
 // TODO: Fill in the <tr>'s under the <tbody> for each item in the cart
@@ -42,7 +44,6 @@ function showCart() {
     trEl.appendChild(tdEl);
     tbodyEl.appendChild(trEl);
   }
-  console.log(Cart);
   // TODO: Create a TR
   // TODO: Create a TD for the delete link, quantity,  and the item
   // TODO: Add the TR to the TBODY and each of the TD's to the TR
@@ -50,13 +51,14 @@ function showCart() {
 }
 
 function removeItemFromCart(event) {
-    var erase = event.target.text;
-    console.log(event);
-    if (erase === 'X') {
-    tbodyEl.removeChild(trEl);
-
-    }
-  }
+  var erase = event.target.textContent;
+  console.log(erase);
+  if (erase === 'X') {
+  
+    tbodyEl.removeChild(event.target.parentNode);
+console.log('It Worked');
+   }
+}
 // }
 
   // TODO: When a delete link is clicked, rebuild the Cart array without that item
